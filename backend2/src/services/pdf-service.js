@@ -18,7 +18,7 @@ class PdfService {
   }
 
   async generateDocument(data, baseUrl) {
-    const documentId = uuidv4(); 
+    const documentId = data.reportId; 
     const pdfPath = path.join(config.uploadsDir, `${documentId}.pdf`);
     
     const htmlContent = await this.generateHTML(data, documentId);
@@ -27,8 +27,7 @@ class PdfService {
     
     return {
       documentId,
-      pdfUrl: `${baseUrl}/downloads/${documentId}.pdf`,
-      htmlUrl: `${baseUrl}/document/${documentId}`
+      pdfUrl: `${baseUrl}/downloads/${documentId}.pdf`
     };
   }
 

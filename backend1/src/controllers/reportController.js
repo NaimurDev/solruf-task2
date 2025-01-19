@@ -9,7 +9,7 @@ exports.saveAndForward = async (req, res) => {
 
     // Forward to Backend 2
     try {
-      await axios.post(process.env.BACKEND_2_URL + '/generate-pdf', {
+      await axios.post('http://localhost:4002/api/generate-pdf', {
         ...req.body,
         reportId: report._id
       });
