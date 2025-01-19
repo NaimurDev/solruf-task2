@@ -10,7 +10,7 @@ type FormInputs = {
   name: string;
   email: string;
   reportTitle: string;
-  reportContent: string;
+  content: string;
   logoUrl: string;
   primaryColor: string;
 };
@@ -108,12 +108,12 @@ export default function PdfGeneratorForm() {
         <div>
           <label className="block text-sm font-medium mb-1">Report Content</label>
           <textarea
-            {...register("reportContent", { required: "Report content is required" })}
+            {...register("content", { required: "Report content is required" })}
             className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             rows={4}
           />
-          {errors.reportContent && (
-            <span className="text-red-500 text-sm">{errors.reportContent.message}</span>
+          {errors.content && (
+            <span className="text-red-500 text-sm">{errors.content.message}</span>
           )}
         </div>
 
@@ -180,7 +180,7 @@ export default function PdfGeneratorForm() {
             </div>
             <div>
               <span className="font-semibold">Report Content:</span>
-              <p className="whitespace-pre-wrap">{formValues.reportContent}</p>
+              <p className="whitespace-pre-wrap">{formValues.content}</p>
             </div>
             <div>
               <span className="font-semibold">Logo URL:</span> {formValues.logoUrl}

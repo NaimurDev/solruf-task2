@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     
     console.log('Received data:', data);
 
-    if (!data.name || !data.email || !data.reportTitle || !data.reportContent) {
+    if (!data.name || !data.email || !data.content || !data.reportTitle || !data.primaryColor || !data.logoUrl) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -15,7 +15,8 @@ export async function POST(request: Request) {
     }
 
     try {
-      const response = await fetch(`${process.env.API_URL}/api/generate-pdf`, {
+      const backendUrl = `${process.env.API_URL}/api/save-and-forward`;
+      const response = await fetch(backendUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +25,9 @@ export async function POST(request: Request) {
       });
 
       if (!response.ok) {
-        throw new Error(`Backend responded with status: ${response.status}`);
+        const errorText = await response.text(); // Log raw response text
+        console.error('Raw error response:', errorText);
+        throw new Error(`Error ${response.status}: ${errorText}`);
       }
 
       const result = await response.json();
@@ -37,7 +40,7 @@ export async function POST(request: Request) {
         { error: 'Failed to generate PDF' },
         { status: 500 }
       );
-    }
+    } 
 
   } catch (error) {
     console.error('API error:', error);
