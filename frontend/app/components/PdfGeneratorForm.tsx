@@ -47,7 +47,7 @@ export default function PdfGeneratorForm() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/generate-pdf`,
+        `/api/generate-pdf`,
         {
           ...data,
           primaryColor: color,
