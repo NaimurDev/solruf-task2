@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     try {
-      const backendUrl = `${process.env.API_URL}/api/save-and-forward`;
+      const backendUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/save-and-forward`;
       const response = await fetch(backendUrl, {
         method: 'POST',
         headers: {

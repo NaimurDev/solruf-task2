@@ -19,6 +19,7 @@ export default function PdfGeneratorForm() {
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#000000");
   const [preview, setPreview] = useState(false);
+  const [reportId, setReportId] = useState<string | null>(null);
 
   const {
     register,
@@ -54,6 +55,7 @@ export default function PdfGeneratorForm() {
           primaryColor: color,
         }
       );
+      setReportId(response.data.reportId);
       toast.success('PDF generated successfully!');
     } catch (error) {
       toast.error('Failed to generate PDF');
@@ -200,6 +202,16 @@ export default function PdfGeneratorForm() {
       )}
         </div>
         <div className="space-y-2"> 
+        {reportId && (
+            <a
+              href={`${process.env.NEXT_PUBLIC_API_URL}/api/reports/${reportId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-green-500 text-white p-2 rounded hover:bg-green-600 transition-colors"
+            >
+              View PDF
+            </a>
+          )}
           <button
             type="submit"
             disabled={loading}
@@ -207,6 +219,7 @@ export default function PdfGeneratorForm() {
           >
             {loading ? 'Generating...' : 'Generate PDF'}
           </button>
+          
           </div>
 
         
