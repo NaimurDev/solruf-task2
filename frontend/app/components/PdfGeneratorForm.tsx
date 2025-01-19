@@ -18,6 +18,7 @@ type FormInputs = {
 export default function PdfGeneratorForm() {
   const [loading, setLoading] = useState(false);
   const [color, setColor] = useState("#000000");
+  const [preview, setPreview] = useState(false);
 
   const {
     register,
@@ -157,6 +158,48 @@ export default function PdfGeneratorForm() {
         </div>
 
         <div className="space-y-2">
+        <button
+          type="button"
+          onClick={() => setPreview(!preview)}
+          className="w-full bg-gray-500 text-white p-2 rounded hover:bg-gray-600 disabled:bg-gray-300 transition-colors"
+        >
+          {preview ? 'Hide Preview' : 'Show Preview'}
+        </button>
+        {preview && (
+        <div className="mt-6 p-4 border rounded bg-gray-50">
+          <h3 className="font-bold mb-2">Preview:</h3>
+          <div className="space-y-2">
+            <div>
+              <span className="font-semibold">Name:</span> {formValues.name}
+            </div>
+            <div>
+              <span className="font-semibold">Email:</span> {formValues.email}
+            </div>
+            <div>
+              <span className="font-semibold">Report Title:</span> {formValues.reportTitle}
+            </div>
+            <div>
+              <span className="font-semibold">Report Content:</span>
+              <p className="whitespace-pre-wrap">{formValues.reportContent}</p>
+            </div>
+            <div>
+              <span className="font-semibold">Logo URL:</span> {formValues.logoUrl}
+            </div>
+            <div>
+              <span className="font-semibold">Primary Color:</span>
+              <div className="flex items-center gap-2">
+                {color}
+                <div 
+                  className="w-6 h-6 border rounded" 
+                  style={{ backgroundColor: color }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+        </div>
+        <div className="space-y-2"> 
           <button
             type="submit"
             disabled={loading}
@@ -164,7 +207,9 @@ export default function PdfGeneratorForm() {
           >
             {loading ? 'Generating...' : 'Generate PDF'}
           </button>
-        </div>
+          </div>
+
+        
       </form>
     </div>
   );
