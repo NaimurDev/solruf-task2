@@ -38,9 +38,12 @@ class PdfService {
     const template = await fs.readFile(templatePath, 'utf-8');
 
     return template
-      .replace('{{documentId}}', documentId)
-      .replace('{{content}}', JSON.stringify(data, null, 2))
-      .replace('{{timestamp}}', new Date().toLocaleString());
+    .replace('{{reportTitle}}', data.reportTitle)
+    .replace('{{name}}', data.name)
+    .replace('{{email}}', data.email)
+    .replace('{{content}}', data.content)
+    .replace('{{logoUrl}}', data.logoUrl)
+    .replace('{{primaryColor}}', data.primaryColor)
   }
 }
 
